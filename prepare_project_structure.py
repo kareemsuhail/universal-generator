@@ -42,6 +42,8 @@ def prepare_project_structure(schema):
         os.makedirs('./{}/{}/graphql'.format(project_title, main_app))
         os.makedirs('./{}/{}/graphql/queries'.format(project_title, main_app))
         os.makedirs('./{}/{}/graphql/mutations'.format(project_title, main_app))
+        # register main app in settings file
+        register_app_in_settings(schema)
         # show progress message
         Logger("project skeleton has been created", "progress").show()
 
@@ -51,3 +53,11 @@ def prepare_project_structure(schema):
             "make sure that there is no folder exist with same name and you have required permissions to create folders",
             "hint")
         sys.exit(0)
+def register_app_in_settings(schema):
+    setting_file = open("./{}/{}/settings.py".format(schema['project_title'], schema['project_title']), "r")
+    setting_lines = setting_file.readlines()
+    setting_lines[38] = setting_lines[38] + '\t\'graphene_django\',\n\t\'{}\'\n'.format(schema['main_app'])
+    setting_file.close()
+    setting_file = open("./{}/{}/settings.py".format(schema['project_title'], schema['project_title']), "w")
+    setting_file.writelines(setting_lines)
+    setting_file.close()
