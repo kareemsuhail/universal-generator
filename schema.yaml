@@ -5,4 +5,4 @@ types:
     fields:
       - name: String
         options: [required,unique]
-      - age: Integer
+      - age: Int
