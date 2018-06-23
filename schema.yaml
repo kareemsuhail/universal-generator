@@ -1,0 +1,8 @@
+# Example YAML schema file
+project_title: project1
+types:
+  Student:
+    fields:
+      - name: String
+        options: [required,unique]
+      - age: Integer
