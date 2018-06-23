@@ -16,6 +16,20 @@ class Logger():
                 "term-background": "on_blue",
                 "message-color": "blue",
                 "message": message
+            },
+            "info": {
+                "term": "Info:",
+                "term-color": "white",
+                "term-background": "on_blue",
+                "message-color": "blue",
+                "message": message
+            },
+            "progress":{
+                "term": "Progress:",
+                "term-color": "white",
+                "term-background": "on_green",
+                "message-color": "green",
+                "message": message
             }
 
         }
