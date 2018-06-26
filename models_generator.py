@@ -35,7 +35,7 @@ def register_models(schema):
             header = "from django.db import models\n"
             body = ""
             for type_name,type_dic in schema['types'].items():
-                body = body + "from .models_files.{} import {}".format(type_name,type_name)
+                body = body + "from .models_files.{} import {}\n".format(type_name,type_name)
             stream.write(header+body)
         except Exception as ex:
             Logger("an error occurred while registering models","error")

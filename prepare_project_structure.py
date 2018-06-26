@@ -7,7 +7,6 @@ import shutil
 
 
 def prepare_project_structure(schema):
-    print(schema.keys())
     # get project title from schema file
     if 'project_title' in schema.keys():
         project_title = schema['project_title']
@@ -49,6 +48,8 @@ def prepare_project_structure(schema):
         register_auth_system(schema)
         # show progress message
         Logger("project skeleton has been created", "progress").show()
+        # register graphql routes
+        register_graphql_routes(schema)
 
     except Exception as ex:
         raise ex
@@ -79,3 +80,16 @@ def register_auth_system(schema):
     setting_file = open("./{}/{}/settings.py".format(schema['project_title'], schema['project_title']), "w")
     setting_file.writelines(setting_lines)
     setting_file.close()
+def register_graphql_routes(schema):
+    routes_file = open("./{}/{}/urls.py".format(schema['project_title'], schema['project_title']), "w")
+    routes_body = """from django.contrib import admin
+from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+] """
+    routes_file.write(routes_body)
+    routes_file.close()
